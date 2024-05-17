@@ -43,4 +43,12 @@ class EloquentProductRepository implements ProductRepository {
         $query = products::select('name','price')->where('stock','>', 0);
         return $query->get()->toArray();
     }
+
+    public function delete($id)
+    {
+        $product = products::findOrFail($id);
+
+        $product->delete();
+        return $product;
+    }
 }

@@ -27,4 +27,18 @@ class EloquentCategoryRepository implements CategoryRepository {
 
         return $data;
     }
+
+    public function getAll()
+    {
+        $query = categories::query();
+        return $query->get()->toArray();
+    }
+
+    public function delete($id)
+    {
+        $category = categories::findOrFail($id);
+
+        $category->delete();
+        return $category;
+    }
 }

@@ -9,5 +9,6 @@ interface ProductRepository {
     public function update($id, $product);
     public function getAll($data);
     public function getListPrice();
+    public function delete($id);
 
 }
