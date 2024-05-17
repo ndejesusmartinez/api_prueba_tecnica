@@ -38,4 +38,9 @@ class EloquentProductRepository implements ProductRepository {
         return $query->get()->toArray();
     }
 
+    public function getListPrice()
+    {
+        $query = products::select('name','price')->where('stock','>', 0);
+        return $query->get()->toArray();
+    }
 }
