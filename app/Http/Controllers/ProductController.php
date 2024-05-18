@@ -8,6 +8,7 @@ use App\Application\UseCases\Products\UpdateProductUseCase;
 use App\Application\UseCases\Products\GetAllProductsUseCase;
 use App\Application\UseCases\Products\GetListPricesUseCase;
 use App\Application\UseCases\Products\DeleteProductUseCase;
+use App\Application\UseCases\Products\GetProductByIdUseCase;
 
 class ProductController extends Controller
 {
@@ -49,6 +50,15 @@ class ProductController extends Controller
     }
 
     public function destroy(int $id, DeleteProductUseCase $useCase)
+    {
+        try {
+            return $useCase->execute($id);
+        } catch (\Throwable $th) {
+            return response(["message" => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function find(int $id, GetProductByIdUseCase $useCase) 
     {
         try {
             return $useCase->execute($id);

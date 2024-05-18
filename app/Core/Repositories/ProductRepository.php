@@ -10,5 +10,6 @@ interface ProductRepository {
     public function getAll($data);
     public function getListPrice();
     public function delete($id);
+    public function findById($id);
 
 }

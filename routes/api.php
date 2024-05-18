@@ -26,6 +26,7 @@ Route::prefix('products')->group(function () {
     Route::put('/{id}', [ProductController::class, 'update']);
     Route::get('', [ProductController::class, 'index']);
     Route::delete('/{id}', [ProductController::class, 'destroy']);
+    Route::get('/{id}', [ProductController::class, 'find']);
 });
 
 Route::prefix('categories')->group(function () {
@@ -33,4 +34,5 @@ Route::prefix('categories')->group(function () {
     Route::put('/{id}', [CategoriesController::class, 'update']);
     Route::get('', [CategoriesController::class, 'index']);
     Route::delete('/{id}', [CategoriesController::class, 'destroy']);
+    Route::get('/{id}', [CategoriesController::class, 'find']);
 });

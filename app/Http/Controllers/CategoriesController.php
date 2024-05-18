@@ -7,6 +7,7 @@ use App\Application\UseCases\Categories\CreateCategorieUseCase;
 use App\Application\UseCases\Categories\UpdateCategorieUseCase;
 use App\Application\UseCases\Categories\GetAllCategoriesUseCase;
 use App\Application\UseCases\Categories\DeleteProductUseCase;
+use App\Application\UseCases\Categories\GetCategorieByIdUseCase;
 
 class CategoriesController extends Controller
 {
@@ -38,6 +39,15 @@ class CategoriesController extends Controller
     }
 
     public function destroy(int $id, DeleteProductUseCase $useCase)
+    {
+        try {
+            return $useCase->execute($id);
+        } catch (\Throwable $th) {
+            return response(["message" => 'Internal Server Error'], 500);
+        }
+    }
+
+    public function find(int $id, GetCategorieByIdUseCase $useCase) 
     {
         try {
             return $useCase->execute($id);

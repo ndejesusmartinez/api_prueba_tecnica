@@ -4,20 +4,27 @@ namespace App\Infraestructure\Repositories;
 
 use App\Core\Entities\products;
 use App\Core\Repositories\ProductRepository;
+use App\Core\Entities\categories_products;
 
 class EloquentProductRepository implements ProductRepository {
 
     public function create($product)
     {
-        $product = new products([
+        $data = new products([
             'name' => $product->name,
             'price' => $product->price,
             'stock' => $product->stock,
         ]);
 
-        $product->save();
+        $data->save();
 
-        return $product;
+        $categories_products = new categories_products([
+            'products_id' => $data->id,
+            'categories_id' => $product->category
+        ]);
+        $categories_products->save();
+
+        return $data;
     }
 
     public function update($id, $product) 
@@ -50,5 +57,10 @@ class EloquentProductRepository implements ProductRepository {
 
         $product->delete();
         return $product;
+    }
+
+    public function findById($id) 
+    {
+        return products::find($id);
     }
 }

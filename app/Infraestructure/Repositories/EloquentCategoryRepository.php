@@ -41,4 +41,9 @@ class EloquentCategoryRepository implements CategoryRepository {
         $category->delete();
         return $category;
     }
+
+    public function findById($id) 
+    {
+        return categories::find($id);
+    }
 }

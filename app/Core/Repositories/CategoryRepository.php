@@ -9,4 +9,5 @@ interface CategoryRepository {
     public function update($id, $category);
     public function getAll();
     public function delete($id);
+    public function findById($id);
 }
