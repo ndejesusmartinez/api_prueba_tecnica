@@ -8,10 +8,18 @@ use App\Application\UseCases\Users\GetAllUsersUseCase;
 use App\Application\UseCases\Users\GetUserByIdUseCase;
 use App\Application\UseCases\Users\UpdateUserUseCase;
 use App\Application\UseCases\Users\DeleteUserUseCase;
+use App\Http\Requests\User\UserDTO;
 
 class UserController extends Controller
 {
-    public function store(Request $request, CreateUserUseCase $useCase)
+    /**
+     * Save new user
+     *
+     * @param UserDTO $request Object with the admitted entry data
+     * @param CreateUserUseCase $useCase The CreateUserUseCase instance to run the user creation.
+     * @return JsonResponse The JSON response with the data of the user product.
+     */
+    public function store(UserDTO $request, CreateUserUseCase $useCase)
     {
         try {
             return $useCase->execute($request);
@@ -20,6 +28,12 @@ class UserController extends Controller
         }
     }
 
+    /** 
+     * Gets all users.
+     * 
+     * @param GetAllUsersUseCase $useCase Instance of the GetAllUsersUseCase class.
+     * @return JsonResponse The JSON response indicating the result.
+     */ 
     public function index(GetAllUsersUseCase $useCase)
     {
         return $useCase->execute();
@@ -31,6 +45,13 @@ class UserController extends Controller
         return $user;
     }
 
+    /** 
+     * Find a user by its ID.
+     * 
+     * @param int $id The ID of the product to search for.
+     * @param UpdateUserUseCase $useCase Instance of the UpdateUserUseCase class.
+     * @return JsonResponse The JSON response indicating the search result.
+     */ 
     public function update(int $id, Request $request, UpdateUserUseCase $useCase)
     {
         try {
@@ -41,6 +62,13 @@ class UserController extends Controller
 
     }
 
+    /** 
+     * Delete an existing user.
+     * 
+     * @param int $id The ID of the product to delete.
+     * @param DeleteUserUseCase $useCase The DeleteUserUseCase instance to execute the user deletion.
+     * @return JsonResponse The JSON response indicating the result of the deletion.
+     */ 
     public function destroy(int $id, DeleteUserUseCase $useCase)
     {
         try {

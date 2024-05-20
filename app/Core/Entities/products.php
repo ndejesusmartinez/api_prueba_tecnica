@@ -20,4 +20,9 @@ class products extends Model
         'price',
         'stock'
     ];
+
+    public function categories()
+    {
+        return $this->belongsToMany(categories::class, 'categories_products', 'products_id', 'categories_id');
+    }
 }

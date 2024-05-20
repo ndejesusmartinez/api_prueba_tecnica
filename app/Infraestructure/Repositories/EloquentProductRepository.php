@@ -39,16 +39,32 @@ class EloquentProductRepository implements ProductRepository {
         return $data;
     }
 
-    public function getAll($filters) 
+    public function getAll() 
     {
-        $query = products::query();
-        return $query->get()->toArray();
+        return products::all();
     }
 
-    public function getListPrice()
+    public function getListPrice($filters, $request)
     {
-        $query = products::select('name','price')->where('stock','>', 0);
-        return $query->get()->toArray();
+        $query = products::select('name', 'price');
+
+        if (isset($request['category_id'])) {
+            $query->whereHas('categories', function ($q) use ($request) {
+                $q->where('categories.id', $request['category_id']);
+            });
+        }
+
+        if (isset($request['price_min'])) {
+            $query->where('price', '>=', $request['price_min']);
+        }
+
+        if (isset($request['price_max'])) {
+            $query->where('price', '<=', $request['price_max']);
+        }
+
+        $products = $query->get();
+
+        return json_decode($products);
     }
 
     public function delete($id)
@@ -61,6 +77,12 @@ class EloquentProductRepository implements ProductRepository {
 
     public function findById($id) 
     {
-        return products::find($id);
+        $product = products::find($id);
+
+        if ($product) {
+            return products::find($id);
+        } else {
+            return response(["message" => "Producto con Id $id no encontrado"], 404);
+        }
     }
 }

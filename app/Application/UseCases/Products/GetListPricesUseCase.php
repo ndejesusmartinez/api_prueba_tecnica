@@ -13,8 +13,8 @@ class GetListPricesUseCase
         $this->productRepository = $productRepository;
     }
 
-    public function execute()
+    public function execute($filters, $request)
     {
-        return $this->productRepository->getListPrice();
+        return $this->productRepository->getListPrice($filters, $request);
     }
 }

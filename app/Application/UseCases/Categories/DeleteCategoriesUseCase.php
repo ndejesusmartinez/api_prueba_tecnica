@@ -4,7 +4,7 @@ namespace App\Application\UseCases\Categories;
 
 use App\Core\Repositories\CategoryRepository;
 
-class DeleteProductUseCase {
+class DeleteCategoriesUseCase {
     private $categoryRepository;
 
     public function __construct(CategoryRepository $categoryRepository)
